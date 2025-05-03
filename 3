@@ -1,0 +1,26 @@
+function rollDice() {
+  return [
+    Math.floor(Math.random() * 6) + 1,
+    Math.floor(Math.random() * 6) + 1,
+    Math.floor(Math.random() * 6) + 1
+  ];
+}
+
+function play(choice) {
+  const dice = rollDice();
+  const total = dice.reduce((a, b) => a + b, 0);
+  const result = (total >= 11 && total <= 17) ? 'Tài' : 'Xỉu';
+
+  const isTriple = dice[0] === dice[1] && dice[1] === dice[2];
+
+  let message = `Xúc xắc: ${dice.join(', ')} (Tổng: ${total})<br>`;
+  if (isTriple) {
+    message += 'Ba số giống nhau - Nhà cái thắng!';
+  } else if (choice === result) {
+    message += `Bạn chọn ${choice} => Bạn thắng!`;
+  } else {
+    message += `Bạn chọn ${choice} => Bạn thua!`;
+  }
+
+  document.getElementById('result').innerHTML = message;
+}
